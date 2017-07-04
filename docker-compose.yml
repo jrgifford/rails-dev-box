@@ -1,0 +1,30 @@
+version: '2'
+services:
+  mysql:
+    image: mysql #version TBD
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=rails_dev # IDK
+
+  postgresql:
+    image: postgres:9.3
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=password3214
+      - POSTGRES_USER=hotcards
+      - POSTGRES_DB=hotcards_development
+  rails:
+    ports:
+      - 3000:3000
+    build: .
+    volumes:
+      - ./rails:/rails
+    depends_on:
+      - mysql
+      - postgresql
+    tty: true
+    stdin_open: true
+
